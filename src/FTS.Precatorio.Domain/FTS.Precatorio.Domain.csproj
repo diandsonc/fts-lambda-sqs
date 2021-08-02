@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="7.4.0" />
+    <PackageReference Include="AWSSDK.DynamoDBv2" Version="3.7.0.48" />
+  </ItemGroup>
+
+</Project>

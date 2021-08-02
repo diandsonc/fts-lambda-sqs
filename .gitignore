@@ -1,0 +1,12 @@
+/packages/
+bin/
+obj/
+*.csproj.user
+*.suo
+/.vs/
+FolderProfile.pubxml
+CustomProfile.pubxml.user
+/Bin
+/TestResults
+teste.pfx
+wwwroot/
