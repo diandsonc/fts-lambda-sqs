@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
-using FTS.Precatorio.Application.Core.Interfaces;
 using FTS.Precatorio.Application.ViewModels.Trade;
+using FTS.Precatorio.Application.Services.Interfaces;
 using FTS.Precatorio.Domain.Core.Enum;
 using FTS.Precatorio.Domain.Core.SQS;
 using FTS.Precatorio.Domain.Trade;
@@ -25,8 +25,7 @@ namespace FTS.Precatorio.Application.Services
 
         public void Add(TradeViewModel tradeViewModel)
         {
-            var command = tradeViewModel.Map();
-            var messsage = JsonSerializer.Serialize(new { Controller = "trades", Action = "insert", command.Id });
+            var messsage = JsonSerializer.Serialize(new { Controller = "trades", Action = "insert", tradeViewModel.Id });
 
             _sqs.SendMessage(Queues.TRADE_QUEUE, messsage);
         }

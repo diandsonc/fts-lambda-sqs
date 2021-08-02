@@ -1,4 +1,4 @@
-namespace FTS.Precatorio.Application.Core
+namespace FTS.Precatorio.Application.ViewModels
 {
     public class ReturnContentJson<T>
     {

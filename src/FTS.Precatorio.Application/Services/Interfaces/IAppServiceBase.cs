@@ -1,6 +1,6 @@
 using System;
 
-namespace FTS.Precatorio.Application.Core.Interfaces
+namespace FTS.Precatorio.Application.Services.Interfaces
 {
     public interface IAppServiceBase : IDisposable
     {

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using FTS.Precatorio.Application.Services;
 using FTS.Precatorio.Application.ViewModels.Trade;
 using Microsoft.AspNetCore.Mvc;
@@ -11,9 +12,17 @@ namespace Service.Trade.Controllers
     {
         private TradeService _tradeService;
 
+        public TradeController() { }
+
         public TradeController(TradeService tradeService)
         {
             _tradeService = tradeService;
+        }
+
+        [HttpGet]
+        public IEnumerable<string> Get()
+        {
+            return new string[] { "value1", "value2" };
         }
 
         [HttpGet("{id}")]

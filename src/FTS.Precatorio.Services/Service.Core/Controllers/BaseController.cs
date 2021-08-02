@@ -1,5 +1,5 @@
 using System;
-using FTS.Precatorio.Application.Core;
+using FTS.Precatorio.Application.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Service.Core.Controllers
