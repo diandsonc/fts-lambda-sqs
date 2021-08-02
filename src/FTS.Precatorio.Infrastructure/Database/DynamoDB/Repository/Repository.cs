@@ -10,7 +10,7 @@ using FTS.Precatorio.Infrastructure.Database.DynamoDB.Context;
 
 namespace FTS.Precatorio.Infrastructure.Database.DynamoDB.Repository
 {
-    public class Repository<TEntity> : IRepositoryDynamo<TEntity> where TEntity : Entity<TEntity>
+    public class Repository<TEntity> : IRepository<TEntity> where TEntity : Entity<TEntity>
     {
         private readonly CoreContext Db;
 
@@ -39,7 +39,7 @@ namespace FTS.Precatorio.Infrastructure.Database.DynamoDB.Repository
             Db.SaveChanges<TEntity>(obj, cancellationToken.Token);
         }
 
-        public void SaveChanges(TEntity obj)
+        public void Add(TEntity obj)
         {
             var cancellationToken = new CancellationTokenSource();
 
@@ -81,7 +81,7 @@ namespace FTS.Precatorio.Infrastructure.Database.DynamoDB.Repository
             return Db.GetGroupControl();
         }
 
-        public ICoreContextDynamo GetContext()
+        public ICoreContext GetContext()
         {
             return Db;
         }

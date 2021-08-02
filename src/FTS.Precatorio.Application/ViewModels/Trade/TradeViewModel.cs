@@ -1,6 +1,5 @@
 using System;
 using TradeEntity = FTS.Precatorio.Domain.Trade.Trade;
-using System.Collections.Generic;
 
 namespace FTS.Precatorio.Application.ViewModels.Trade
 {
@@ -9,18 +8,13 @@ namespace FTS.Precatorio.Application.ViewModels.Trade
         public Guid? Id { get; set; }
         public string Code { get; set; }
 
-        public static List<TradeViewModel> Map(IEnumerable<TradeEntity> trades)
+        public static TradeViewModel Map(TradeEntity trade)
         {
-            var data = new List<TradeViewModel>();
-
-            foreach (var trade in trades)
+            var data = new TradeViewModel
             {
-                data.Add(new TradeViewModel
-                {
-                    Id = trade.Id,
-                    Code = trade.Code
-                });
-            }
+                Id = trade.Id,
+                Code = trade.Code
+            };
 
             return data;
         }

@@ -1,14 +1,13 @@
 using System;
 using System.Collections.Generic;
-using System.Linq.Expressions;
 using FTS.Precatorio.Application.ViewModels.Trade;
 using FTS.Precatorio.Application.Services.Interfaces;
 using FTS.Precatorio.Domain.Core.Enum;
 using FTS.Precatorio.Domain.Core.SQS;
 using FTS.Precatorio.Domain.Trade;
 using FTS.Precatorio.Domain.Trade.Repository;
-using FTS.Precatorio.Infrastructure.Utility;
 using System.Text.Json;
+using System.Threading.Tasks;
 
 namespace FTS.Precatorio.Application.Services
 {
@@ -30,16 +29,16 @@ namespace FTS.Precatorio.Application.Services
             _sqs.SendMessage(Queues.TRADE_QUEUE, messsage);
         }
 
-        public IEnumerable<TradeViewModel> FindTrade(Guid tradeId)
+        public void Add(Trade trade)
+        {
+            _tradeRepository.Add(trade);
+        }
+
+        public async Task<TradeViewModel> GetTradeById(Guid tradeId)
         {
             if (tradeId != Guid.Empty)
             {
-                Expression<Func<Trade, bool>> predicate = null;
-
-                predicate = ExpressionExtension.Query<Trade>();
-                predicate = predicate.And(it => tradeId == it.Id);
-
-                var dados = _tradeRepository.FindTrade(predicate);
+                var dados = await _tradeRepository.GetById(tradeId);
 
                 return TradeViewModel.Map(dados);
             }

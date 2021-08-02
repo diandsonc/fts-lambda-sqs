@@ -9,7 +9,7 @@ using FTS.Precatorio.Domain.Core.Interfaces;
 
 namespace FTS.Precatorio.Infrastructure.Database.DynamoDB.Context
 {
-    public abstract class CoreContext : DynamoDBContext, ICoreContextDynamo
+    public abstract class CoreContext : DynamoDBContext, ICoreContext
     {
         public Guid Id { get; }
         public bool IgnoreGroup { get; set; }

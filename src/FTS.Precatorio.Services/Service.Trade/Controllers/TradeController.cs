@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using FTS.Precatorio.Application.Services;
 using FTS.Precatorio.Application.ViewModels.Trade;
 using Microsoft.AspNetCore.Mvc;
@@ -26,9 +27,9 @@ namespace Service.Trade.Controllers
         }
 
         [HttpGet("{id}")]
-        public IActionResult Get(Guid id)
+        public async Task<IActionResult> Get(Guid id)
         {
-            var data = _tradeService.FindTrade(id);
+            var data = await _tradeService.GetTradeById(id);
 
             return Response(data);
         }

@@ -1,6 +1,5 @@
 using System.Threading.Tasks;
 using Xunit;
-using Tests.Core;
 using Moq;
 using FTS.Precatorio.Domain.Core.Interfaces;
 using Microsoft.AspNetCore.Http;
@@ -14,14 +13,12 @@ namespace Service.Trade.Tests
 {
     public class ValuesControllerTests
     {
-        private readonly ConfigTest _config;
         private readonly Mock<HttpContext> _contextMock;
         private readonly Mock<IUserToken> _userTokenMoq;
         private readonly Mock<FTSPrecatorioContext> _contextFTSPrecatorioMock;
 
         public ValuesControllerTests()
         {
-            _config = new ConfigTest();
             _contextMock = new Mock<HttpContext>();
             _userTokenMoq = new Mock<IUserToken>();
             _contextFTSPrecatorioMock = new Mock<FTSPrecatorioContext>(_userTokenMoq.Object);

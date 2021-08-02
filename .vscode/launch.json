@@ -9,7 +9,7 @@
       "type": "coreclr",
       "request": "launch",
       "preLaunchTask": "build",
-      "program": "${workspaceFolder}/src/FTS.Precatorio.Services/Service.Trade/bin/Debug/net5.0/Service.Trade.dll",
+      "program": "${workspaceFolder}/src/FTS.Precatorio.Services/Service.Trade/bin/Debug/netcoreapp3.1/Service.Trade.dll",
       "args": [],
       "cwd": "${workspaceFolder}/src/FTS.Precatorio.Services/Service.Trade",
       "stopAtEntry": false,
