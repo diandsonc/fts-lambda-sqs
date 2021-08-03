@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel.DataAnnotations;
 using TradeEntity = FTS.Precatorio.Domain.Trade.Trade;
 
 namespace FTS.Precatorio.Dto.Trade
@@ -6,6 +7,8 @@ namespace FTS.Precatorio.Dto.Trade
     public class TradeViewModel
     {
         public Guid? Id { get; set; }
+
+        [Required]
         public string Code { get; set; }
 
         public static TradeViewModel Map(TradeEntity trade)
@@ -21,7 +24,7 @@ namespace FTS.Precatorio.Dto.Trade
 
         public TradeEntity Map()
         {
-            var data = new TradeEntity(Code);
+            var data = new TradeEntity.Factory().Create(Code, Guid.Empty);
 
             return data;
         }

@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using FTS.Precatorio.Domain.Interfaces;
 using FTS.Precatorio.Domain.Trade.Services;
 using FTS.Precatorio.Dto.Trade;
 using Microsoft.AspNetCore.Mvc;
@@ -11,7 +12,7 @@ namespace FTS.Precatorio.Api.Controllers
     {
         private TradeService _tradeService;
 
-        public TradeController(TradeService tradeService)
+        public TradeController(IDomainNotification notifications, TradeService tradeService) : base(notifications)
         {
             _tradeService = tradeService;
         }
@@ -29,6 +30,8 @@ namespace FTS.Precatorio.Api.Controllers
         {
             if (!ModelState.IsValid)
             {
+                NotificateErrorInvalidModel();
+
                 return Response();
             }
 

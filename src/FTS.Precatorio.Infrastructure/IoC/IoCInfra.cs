@@ -13,6 +13,7 @@ using FTS.Precatorio.Infrastructure.User;
 using FTS.Precatorio.Domain.Interfaces;
 using FTS.Precatorio.Domain.SQS;
 using FTS.Precatorio.Domain.Trade.Services;
+using FTS.Precatorio.Domain.Notifications;
 
 namespace FTS.Precatorio.Infrastructure.IoC
 {
@@ -25,6 +26,8 @@ namespace FTS.Precatorio.Infrastructure.IoC
             services.AddSingleton<IConfiguration>(configuration);
 
             services.AddTransient<TradeService>();
+
+            services.AddScoped<IDomainNotification, DomainNotification>();
 
             RegisterAmazonServices(services, configuration);
             RegisterServicesDynamoDb(services);

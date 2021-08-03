@@ -1,6 +1,7 @@
 using System;
 using System.Text.Json;
 using System.Threading.Tasks;
+using FTS.Precatorio.Domain.Interfaces;
 using FTS.Precatorio.Domain.Trade.Repository;
 using FTS.Precatorio.Domain.Trade.Services.Interfaces;
 
@@ -9,21 +10,31 @@ namespace FTS.Precatorio.Domain.Trade.Services
     public class TradeService : IAppServiceBase
     {
         private readonly ITradeRepository _tradeRepository;
+        private readonly IDomainNotification _notifications;
 
-        public TradeService(ITradeRepository tradeRepository)
+        public TradeService(IDomainNotification notifications, ITradeRepository tradeRepository)
         {
+            _notifications = notifications;
             _tradeRepository = tradeRepository;
         }
 
         public void AddToQueue(Trade trade)
         {
-            var message = JsonSerializer.Serialize(new { Controller = "trades", Action = "insert", trade.Id });
+            var message = JsonSerializer.Serialize(new { Controller = "trade", Action = "insert", trade.Id });
 
             _tradeRepository.SendMessage(message);
         }
 
         public async Task Add(Trade trade)
         {
+            var validate = new CreateTradeValidator().Validate(trade);
+
+            if (!validate.IsValid)
+            {
+                _notifications.NotifyError(validate);
+                return;
+            }
+
             await _tradeRepository.Add(trade);
         }
 
