@@ -9,7 +9,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/src/FTS.Precatorio.Services/Service.Trade/Service.Trade.csproj"
+                "${workspaceFolder}/src/FTS.Precatorio.Api/FTS.Precatorio.Api.csproj"
             ],
             "group": "build",
             "presentation": {

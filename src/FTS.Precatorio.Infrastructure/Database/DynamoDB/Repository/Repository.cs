@@ -4,13 +4,12 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Amazon.DynamoDBv2.DocumentModel;
-using FTS.Precatorio.Domain.Core;
-using FTS.Precatorio.Domain.Core.Interfaces;
+using FTS.Precatorio.Domain.Interfaces;
 using FTS.Precatorio.Infrastructure.Database.DynamoDB.Context;
 
 namespace FTS.Precatorio.Infrastructure.Database.DynamoDB.Repository
 {
-    public class Repository<TEntity> : IRepository<TEntity> where TEntity : Entity<TEntity>
+    public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
     {
         private readonly CoreContext Db;
 
@@ -30,22 +29,22 @@ namespace FTS.Precatorio.Infrastructure.Database.DynamoDB.Repository
             Db.Dispose();
         }
 
-        public virtual void Update(TEntity obj)
+        public virtual async Task Update(TEntity obj)
         {
             var cancellationToken = new CancellationTokenSource();
 
             obj = Db.Update<TEntity>(obj);
 
-            Db.SaveChanges<TEntity>(obj, cancellationToken.Token);
+            await Db.SaveChangesAsync<TEntity>(obj, cancellationToken.Token);
         }
 
-        public void Add(TEntity obj)
+        public async Task Add(TEntity obj)
         {
             var cancellationToken = new CancellationTokenSource();
 
             obj = Db.Add<TEntity>(obj);
 
-            Db.SaveChanges<TEntity>(obj, cancellationToken.Token);
+            await Db.SaveChangesAsync<TEntity>(obj, cancellationToken.Token);
         }
 
         public virtual async Task<TEntity> GetById(Guid id)

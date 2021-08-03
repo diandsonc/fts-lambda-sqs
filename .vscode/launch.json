@@ -9,9 +9,9 @@
       "type": "coreclr",
       "request": "launch",
       "preLaunchTask": "build",
-      "program": "${workspaceFolder}/src/FTS.Precatorio.Services/Service.Trade/bin/Debug/netcoreapp3.1/Service.Trade.dll",
+      "program": "${workspaceFolder}/src/FTS.Precatorio.Api/bin/Debug/net5.0/FTS.Precatorio.Api.dll",
       "args": [],
-      "cwd": "${workspaceFolder}/src/FTS.Precatorio.Services/Service.Trade",
+      "cwd": "${workspaceFolder}/src/FTS.Precatorio.Api",
       "stopAtEntry": false,
       "serverReadyAction": {
         "action": "openExternally",

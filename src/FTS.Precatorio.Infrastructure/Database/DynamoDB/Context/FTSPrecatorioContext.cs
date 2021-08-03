@@ -1,5 +1,5 @@
 using Amazon.DynamoDBv2;
-using FTS.Precatorio.Domain.Core.Interfaces;
+using FTS.Precatorio.Domain.Interfaces;
 
 namespace FTS.Precatorio.Infrastructure.Database.DynamoDB.Context
 {

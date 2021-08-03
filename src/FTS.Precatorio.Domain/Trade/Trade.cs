@@ -1,17 +1,39 @@
 using System;
+using System.ComponentModel.DataAnnotations;
 using Amazon.DynamoDBv2.DataModel;
 using FluentValidation;
-using FTS.Precatorio.Domain.Core;
+using ValidationResult = FluentValidation.Results.ValidationResult;
 
 namespace FTS.Precatorio.Domain.Trade
 {
     [DynamoDBTable("test_trade")]
-    public class Trade : Entity<Trade>
+    public class Trade : AbstractValidator<Trade>
     {
-        public string Code { get; private set; }
-        public Guid GroupId { get; private set; }
+        [DynamoDBHashKey]
+        public Guid Id { get; set; }
 
-        public Trade() { }
+        [Required]
+        public string Code { get; set; }
+
+        [Required]
+        public Guid GroupId { get; set; }
+
+        public DateTime DataInc { get; set; }
+
+        [Required]
+        [MaxLength(50), StringLength(50)]
+        public string UsuInc { get; set; }
+
+        [DynamoDBIgnore]
+        public ValidationResult ValidationResult { get; protected set; }
+
+        [DynamoDBIgnore]
+        public new CascadeMode CascadeMode { get; set; }
+
+        public Trade()
+        {
+            ValidationResult = new ValidationResult();
+        }
 
         public Trade(string code) : this()
         {

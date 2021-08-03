@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.DataModel;
 using Amazon.DynamoDBv2.DocumentModel;
-using FTS.Precatorio.Domain.Core.Interfaces;
+using FTS.Precatorio.Domain.Interfaces;
 
 namespace FTS.Precatorio.Infrastructure.Database.DynamoDB.Context
 {
@@ -34,10 +34,8 @@ namespace FTS.Precatorio.Infrastructure.Database.DynamoDB.Context
 
             dynamic buff = entity;
 
-            buff.Control_DataAlter = DateTimeOffset.Now;
-            buff.Control_DataInc = DateTimeOffset.Now;
-            buff.Control_UsuAlter = "adm";
-            buff.Control_UsuInc = "adm";
+            buff.DataInc = DateTime.UtcNow;
+            buff.UsuInc = "adm";
 
             return buff;
         }
@@ -51,13 +49,13 @@ namespace FTS.Precatorio.Infrastructure.Database.DynamoDB.Context
 
             dynamic buff = entity;
 
-            buff.Control_DataAlter = DateTimeOffset.Now;
-            buff.Control_UsuAlter = "adm";
+            // buff.DataAlter = DateTimeOffset.Now;
+            // buff.UsuAlter = "adm";
 
             return buff;
         }
 
-        public int SaveChanges<T>(T value, CancellationToken cancellationToken)
+        public async Task SaveChangesAsync<T>(T value, CancellationToken cancellationToken)
         {
             bool saveFailed;
             int countFailBack = 0;
@@ -69,7 +67,7 @@ namespace FTS.Precatorio.Infrastructure.Database.DynamoDB.Context
 
                 try
                 {
-                    base.SaveAsync<T>(value, cancellationToken);
+                    await base.SaveAsync<T>(value, cancellationToken);
                 }
                 catch (Exception ex)
                 {
@@ -80,8 +78,6 @@ namespace FTS.Precatorio.Infrastructure.Database.DynamoDB.Context
                     countFailBack++;
                 }
             } while (saveFailed);
-
-            return !saveFailed ? 1 : 0;
         }
 
         public DynamoDBOperationConfig ConfigureTenantFilter()
@@ -90,7 +86,7 @@ namespace FTS.Precatorio.Infrastructure.Database.DynamoDB.Context
 
             var config = new DynamoDBOperationConfig
             {
-                QueryFilter = new List<ScanCondition> { new ScanCondition("Control_GrupoId", ScanOperator.Equal, GetGroupControl()) }
+                QueryFilter = new List<ScanCondition> { new ScanCondition("GroupId", ScanOperator.Equal, GetGroupControl()) }
             };
 
             return config;
