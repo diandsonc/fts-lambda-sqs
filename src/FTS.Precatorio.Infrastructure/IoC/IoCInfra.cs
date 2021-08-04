@@ -14,6 +14,8 @@ using FTS.Precatorio.Domain.Interfaces;
 using FTS.Precatorio.Domain.SQS;
 using FTS.Precatorio.Domain.Trade.Services;
 using FTS.Precatorio.Domain.Notifications;
+using FTS.Precatorio.Domain.SNS;
+using Amazon.SimpleNotificationService;
 
 namespace FTS.Precatorio.Infrastructure.IoC
 {
@@ -61,6 +63,16 @@ namespace FTS.Precatorio.Infrastructure.IoC
                 var sqsClient = new AmazonSQSClient(autenticacao, bucketRegion);
 
                 return new SQS(sqsClient);
+            });
+
+            services.AddScoped<ISNS, SNS>(sp =>
+            {
+                var region = amazon.SNS?.Region ?? amazon.Region;
+                var bucketRegion = RegionEndpoint.GetBySystemName(region);
+                var autenticacao = new BasicAWSCredentials(amazon.AcessKey, amazon.SecretKey);
+                var snsClient = new AmazonSimpleNotificationServiceClient(autenticacao, bucketRegion);
+
+                return new SNS(snsClient);
             });
         }
     }

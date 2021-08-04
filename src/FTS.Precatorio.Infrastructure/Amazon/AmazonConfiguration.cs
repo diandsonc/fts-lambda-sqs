@@ -6,10 +6,16 @@ namespace FTS.Precatorio.Infrastructure.Amazon
         public string SecretKey { get; set; }
         public string Region { get; set; }
         public AmazonConfigurationSQS SQS { get; set; }
+        public AmazonConfigurationSNS SNS { get; set; }
         public AmazonConfigurationDynamoDB DynamoDB { get; set; }
     }
 
     public class AmazonConfigurationSQS
+    {
+        public string Region { get; set; }
+    }
+
+    public class AmazonConfigurationSNS
     {
         public string Region { get; set; }
     }
