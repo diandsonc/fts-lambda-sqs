@@ -12,5 +12,5 @@
   "function-runtime": "dotnetcore3.1",
   "function-memory-size": 256,
   "function-timeout": 30,
-  "function-handler": "Lambda.CreateUser::Lambda.CreateUser.Function::FunctionHandler"
+  "function-handler": "Lambda.CreateTrade::Lambda.CreateTrade.Function::FunctionHandler"
 }

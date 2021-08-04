@@ -5,7 +5,7 @@ using Amazon.Lambda.TestUtilities;
 using Amazon.Lambda.SQSEvents;
 using System;
 
-namespace Lambda.CreateUser.Tests
+namespace Lambda.CreateTrade.Tests
 {
     public class FunctionTest
     {

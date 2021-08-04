@@ -30,7 +30,7 @@
     <ProjectReference Include="..\src\FTS.Precatorio.Domain\FTS.Precatorio.Domain.csproj" />
     <ProjectReference Include="..\src\FTS.Precatorio.Api\FTS.Precatorio.Api.csproj" />
     <ProjectReference Include="..\src\FTS.Precatorio.Message\Lambda.Core\Lambda.Core.csproj" />
-    <ProjectReference Include="..\src\FTS.Precatorio.Message\Lambda.CreateUser\Lambda.CreateUser.csproj" />
+    <ProjectReference Include="..\src\FTS.Precatorio.Message\Lambda.CreateTrade\Lambda.CreateTrade.csproj" />
   </ItemGroup>
 
 </Project>

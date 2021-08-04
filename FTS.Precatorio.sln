@@ -17,7 +17,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FTS.Precatorio.Message", "F
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lambda.Core", "src\FTS.Precatorio.Message\Lambda.Core\Lambda.Core.csproj", "{7A5B32D3-9964-411D-AAE1-D1DD83CFFF9B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lambda.CreateUser", "src\FTS.Precatorio.Message\Lambda.CreateUser\Lambda.CreateUser.csproj", "{42D3E4F2-F70C-4FE1-A2E8-227D094A8EB1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lambda.CreateTrade", "src\FTS.Precatorio.Message\Lambda.CreateTrade\Lambda.CreateTrade.csproj", "{42D3E4F2-F70C-4FE1-A2E8-227D094A8EB1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FTS.Precatorio.Tests", "test\FTS.Precatorio.Tests.csproj", "{1235CBE7-B43B-46AF-B8A9-44308109AED6}"
 EndProject
