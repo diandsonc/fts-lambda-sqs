@@ -1,4 +1,4 @@
-using FTS.Precatorio.Domain.SQS;
+using FTS.Precatorio.Domain.Amazon;
 using FTS.Precatorio.Domain.Trade;
 using FTS.Precatorio.Domain.Trade.Repository;
 using FTS.Precatorio.Infrastructure.Database.DynamoDB.Context;
@@ -10,20 +10,20 @@ namespace FTS.Precatorio.Infrastructure.Database.DynamoDB.Repository
     {
         private FTSPrecatorioContext _context;
         private readonly IConfiguration _configuration;
-        private readonly ISQS _sqs;
+        private readonly AmazonService _amazonService;
 
-        public TradeRepository(ISQS sqs, IConfiguration configuration, FTSPrecatorioContext context) : base(context)
+        public TradeRepository(AmazonService amazonService, IConfiguration configuration, FTSPrecatorioContext context) : base(context)
         {
-            _sqs = sqs;
+            _amazonService = amazonService;
             _configuration = configuration;
             _context = context;
         }
 
         public void SendMessage(string message)
         {
-            var queueName = _configuration.GetValue<string>("AmazonWS:SQS:Queues:QueueTrade");
+            var queueName = _amazonService.GetKeyValue("AWS:SQS:Queues:QueueTrade");
 
-            _sqs.SendMessage(queueName, message);
+            _amazonService.SendMessageToSQS(queueName, message);
         }
     }
 }
