@@ -1,7 +1,7 @@
 using System.IO;
 using Microsoft.Extensions.Configuration;
 
-namespace Lambda.Core
+namespace Lambda.SQSTradeToStepFunction
 {
     public class LambdaConfiguration
     {

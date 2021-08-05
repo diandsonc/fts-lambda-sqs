@@ -7,6 +7,6 @@
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Lambda.Core\Lambda.Core.csproj" />
+    <ProjectReference Include="..\Lambda.Shared\Lambda.Shared.csproj" />
   </ItemGroup>
 </Project>

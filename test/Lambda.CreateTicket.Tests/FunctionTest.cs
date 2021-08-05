@@ -7,9 +7,9 @@ using Xunit;
 using Amazon.Lambda.Core;
 using Amazon.Lambda.TestUtilities;
 
-using Lambda.CreateTrade;
+using Lambda.CreateTicket;
 
-namespace Lambda.CreateTrade.Tests
+namespace Lambda.CreateTicket.Tests
 {
     public class FunctionTest
     {
