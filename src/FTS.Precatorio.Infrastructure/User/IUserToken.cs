@@ -1,6 +1,6 @@
 using System;
 
-namespace FTS.Precatorio.Domain.Interfaces
+namespace FTS.Precatorio.Infrastructure.User
 {
     public interface IUserToken
     {

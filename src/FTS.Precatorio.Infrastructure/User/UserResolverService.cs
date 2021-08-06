@@ -1,7 +1,6 @@
 using System;
 using System.Linq;
 using System.Security.Claims;
-using FTS.Precatorio.Domain.Interfaces;
 using Microsoft.AspNetCore.Http;
 
 namespace FTS.Precatorio.Infrastructure.User

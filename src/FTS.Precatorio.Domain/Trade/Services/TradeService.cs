@@ -1,13 +1,12 @@
 using System;
 using System.Text.Json;
 using System.Threading.Tasks;
-using FTS.Precatorio.Domain.Interfaces;
+using FTS.Precatorio.Domain.Notifications;
 using FTS.Precatorio.Domain.Trade.Repository;
-using FTS.Precatorio.Domain.Trade.Services.Interfaces;
 
 namespace FTS.Precatorio.Domain.Trade.Services
 {
-    public class TradeService : IAppServiceBase
+    public class TradeService
     {
         private readonly ITradeRepository _tradeRepository;
         private readonly IDomainNotification _notifications;
@@ -48,21 +47,6 @@ namespace FTS.Precatorio.Domain.Trade.Services
             }
 
             return null;
-        }
-
-        public void SetGroupId(Guid controlGroupId)
-        {
-            _tradeRepository.SetGroupId(controlGroupId);
-        }
-
-        public void IgnoreGroup(bool ignore)
-        {
-            _tradeRepository.IgnoreGroup = ignore;
-        }
-
-        public void Dispose()
-        {
-            _tradeRepository.Dispose();
         }
     }
 }

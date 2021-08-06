@@ -2,8 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Amazon.DynamoDBv2.DocumentModel;
+using FTS.Precatorio.Infrastructure.Database.DynamoDB.Context;
 
-namespace FTS.Precatorio.Domain.Interfaces
+namespace FTS.Precatorio.Infrastructure.Database.DynamoDB.Repository
 {
     public interface IRepository<TEntity> : IDisposable where TEntity : class
     {
@@ -14,7 +15,5 @@ namespace FTS.Precatorio.Domain.Interfaces
         Task<IEnumerable<TEntity>> GetAll(int limit, string paginationToken = null);
         ICoreContext GetContext();
         bool IgnoreGroup { get; set; }
-        void SetGroupId(Guid groupId);
-        Guid GetGroupId();
     }
 }

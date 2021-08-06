@@ -1,6 +1,6 @@
 using System;
 using System.Threading.Tasks;
-using FTS.Precatorio.Domain.Interfaces;
+using FTS.Precatorio.Domain.Notifications;
 using FTS.Precatorio.Domain.Trade.Services;
 using FTS.Precatorio.Dto.Trade;
 using Microsoft.AspNetCore.Mvc;

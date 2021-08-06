@@ -1,6 +1,5 @@
 using System;
 using System.Linq;
-using FTS.Precatorio.Domain.Interfaces;
 using FTS.Precatorio.Domain.Notifications;
 using FTS.Precatorio.Dto;
 using Microsoft.AspNetCore.Mvc;

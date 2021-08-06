@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.DataModel;
 using Amazon.DynamoDBv2.DocumentModel;
-using FTS.Precatorio.Domain.Interfaces;
+using FTS.Precatorio.Infrastructure.User;
 
 namespace FTS.Precatorio.Infrastructure.Database.DynamoDB.Context
 {
@@ -86,7 +86,7 @@ namespace FTS.Precatorio.Infrastructure.Database.DynamoDB.Context
 
             var config = new DynamoDBOperationConfig
             {
-                QueryFilter = new List<ScanCondition> { new ScanCondition("GroupId", ScanOperator.Equal, GetGroupControl()) }
+                QueryFilter = new List<ScanCondition> { new ScanCondition("GroupId", ScanOperator.Equal, _control_GroupId) }
             };
 
             return config;
@@ -114,16 +114,6 @@ namespace FTS.Precatorio.Infrastructure.Database.DynamoDB.Context
         public AsyncSearch<TEntity> FindAsync<TEntity>(IEnumerable<ScanCondition> conditions)
         {
             return ScanAsync<TEntity>(conditions, ConfigureTenantFilter());
-        }
-
-        public virtual Guid GetGroupControl()
-        {
-            return _control_GroupId;
-        }
-
-        public void SetGroupControl(Guid controlId)
-        {
-            _control_GroupId = controlId;
         }
     }
 }

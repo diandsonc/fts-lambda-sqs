@@ -2,12 +2,10 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace FTS.Precatorio.Domain.Interfaces
+namespace FTS.Precatorio.Infrastructure.Database.DynamoDB.Context
 {
     public interface ICoreContext : IDisposable
     {
         Task SaveChangesAsync<T>(T value, CancellationToken cancellationToken);
-        Guid GetGroupControl();
-        void SetGroupControl(Guid controlId);
     }
 }

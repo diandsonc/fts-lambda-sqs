@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Amazon.DynamoDBv2.DocumentModel;
-using FTS.Precatorio.Domain.Interfaces;
 using FTS.Precatorio.Infrastructure.Database.DynamoDB.Context;
 
 namespace FTS.Precatorio.Infrastructure.Database.DynamoDB.Repository
@@ -68,16 +67,6 @@ namespace FTS.Precatorio.Infrastructure.Database.DynamoDB.Repository
             var data = await Db.FindAsync<TEntity>(limit, paginationToken).GetRemainingAsync();
 
             return data.AsEnumerable();
-        }
-
-        public void SetGroupId(Guid groupId)
-        {
-            Db.SetGroupControl(groupId);
-        }
-
-        public virtual Guid GetGroupId()
-        {
-            return Db.GetGroupControl();
         }
 
         public ICoreContext GetContext()

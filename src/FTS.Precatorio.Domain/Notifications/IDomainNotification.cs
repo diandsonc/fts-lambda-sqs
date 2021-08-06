@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using FluentValidation.Results;
 
-namespace FTS.Precatorio.Domain.Interfaces
+namespace FTS.Precatorio.Domain.Notifications
 {
     public interface IDomainNotification
     {

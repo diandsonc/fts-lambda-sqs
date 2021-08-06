@@ -6,16 +6,16 @@ using Amazon.StepFunctions;
 using Amazon.StepFunctions.Model;
 using Microsoft.Extensions.Configuration;
 
-namespace FTS.Precatorio.Domain.Amazon
+namespace FTS.Precatorio.Infrastructure.AWS
 {
-    public class AmazonService
+    public class AWSService : IAWSService
     {
         private readonly IAmazonStepFunctions _sfClient;
         private readonly IAmazonSimpleNotificationService _snsClient;
         private readonly IAmazonSQS _sqsClient;
         private readonly IConfiguration _configuration;
 
-        public AmazonService(IAmazonStepFunctions sfClient, IAmazonSimpleNotificationService snsClient,
+        public AWSService(IAmazonStepFunctions sfClient, IAmazonSimpleNotificationService snsClient,
             IAmazonSQS sqsClient, IConfiguration configuration)
         {
             _sfClient = sfClient;
