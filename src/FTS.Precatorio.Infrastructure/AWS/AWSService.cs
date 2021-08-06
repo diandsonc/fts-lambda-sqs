@@ -1,3 +1,4 @@
+using System.Threading;
 using Amazon.SimpleNotificationService;
 using Amazon.SimpleNotificationService.Model;
 using Amazon.SQS;
@@ -68,7 +69,27 @@ namespace FTS.Precatorio.Infrastructure.AWS
                 StateMachineArn = "arn:aws:states:us-west-2:<SomeNumber>:stateMachine:SchedulingEngine"
             };
 
-            _sfClient.StartExecutionAsync(sendMessageRequest).Wait();
+            // _sfClient.StartExecutionAsync(sendMessageRequest).Wait();
+
+            var sendMessageExecution = _sfClient.StartExecutionAsync(sendMessageRequest);
+
+            var executionArn = sendMessageExecution.Result.ExecutionArn;
+            var executionRequest = new DescribeExecutionRequest { ExecutionArn = executionArn };
+            var runnig = true;
+            var output = string.Empty;
+
+            do
+            {
+                Thread.Sleep(500);
+                var describeExecutionRequest = _sfClient.DescribeExecutionAsync(executionRequest);
+                var result = describeExecutionRequest.Result;
+                var status = result.Status;
+                runnig = status == ExecutionStatus.RUNNING;
+
+                if (status == ExecutionStatus.SUCCEEDED)
+                    output = result.Output;
+            }
+            while (runnig);
         }
     }
 }
