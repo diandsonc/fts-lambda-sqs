@@ -5,7 +5,7 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": ".NET Core Launch (web)",
+      "name": "Lambda (Proxy)",
       "type": "coreclr",
       "request": "launch",
       "preLaunchTask": "build",
@@ -13,6 +13,9 @@
       "args": [],
       "cwd": "${workspaceFolder}/src/FTS.Precatorio.Api",
       "stopAtEntry": false,
+      "launchBrowser": {
+        "enabled": false
+      },
       "serverReadyAction": {
         "action": "openExternally",
         "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
@@ -25,57 +28,64 @@
       }
     },
     {
-      "name": ".NET Core Attach",
+      "name": "Lambda (SQS)",
       "type": "coreclr",
-      "request": "attach"
+      "request": "launch",
+      "preLaunchTask": "build",
+      "program": "${env:USERPROFILE}/.dotnet/tools/dotnet-lambda-test-tool-3.1.exe",
+      "args": ["--port", "5001"],
+      "cwd": "${workspaceFolder}/src/FTS.Precatorio.Message/Lambda.SQSTradeToStepFunction",
+      "console": "internalConsole",
+      "stopAtEntry": false,
+      "internalConsoleOptions": "openOnSessionStart"
     },
-	{
-		"name": ".NET Core Launch (LAMBDA SQS)",
-		"type": "coreclr",
-		"request": "launch",
-		"preLaunchTask": "build",
-		"program": "${env:USERPROFILE}/.dotnet/tools/dotnet-lambda-test-tool-3.1.exe",
-		"args": ["--port", "5001", "--no-ui", "true", "--payload", "create-trade-full"],
-		"cwd": "${workspaceFolder}/src/FTS.Precatorio.Message/Lambda.SQSTradeToStepFunction",
-		"console": "internalConsole",
-		"stopAtEntry": false,
-		"internalConsoleOptions": "openOnSessionStart"
-	},
-	{
-		"name": ".NET Core Launch (LAMBDA CreateAssets)",
-		"type": "coreclr",
-		"request": "launch",
-		"preLaunchTask": "build",
-		"program": "${env:USERPROFILE}/.dotnet/tools/dotnet-lambda-test-tool-3.1.exe",
-		"args": ["--port", "5003"],
-		"cwd": "${workspaceFolder}/src/FTS.Precatorio.StepFunction/Lambda.CreateAssets",
-		"console": "internalConsole",
-		"stopAtEntry": false,
-		"internalConsoleOptions": "openOnSessionStart"
-	},
-	{
-		"name": ".NET Core Launch (LAMBDA CreateTicket)",
-		"type": "coreclr",
-		"request": "launch",
-		"preLaunchTask": "build",
-		"program": "${env:USERPROFILE}/.dotnet/tools/dotnet-lambda-test-tool-3.1.exe",
-		"args": ["--port", "5005"],
-		"cwd": "${workspaceFolder}/src/FTS.Precatorio.StepFunction/Lambda.CreateTicket",
-		"console": "internalConsole",
-		"stopAtEntry": false,
-		"internalConsoleOptions": "openOnSessionStart"
-	},
-	{
-		"name": ".NET Core Launch (LAMBDA CreateTrade)",
-		"type": "coreclr",
-		"request": "launch",
-		"preLaunchTask": "build",
-		"program": "${env:USERPROFILE}/.dotnet/tools/dotnet-lambda-test-tool-3.1.exe",
-		"args": ["--port", "5007"],
-		"cwd": "${workspaceFolder}/src/FTS.Precatorio.StepFunction/Lambda.CreateTrade",
-		"console": "internalConsole",
-		"stopAtEntry": false,
-		"internalConsoleOptions": "openOnSessionStart"
-	}
+    {
+      "name": "Lambda (CreateAssets)",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build",
+      "program": "${env:USERPROFILE}/.dotnet/tools/dotnet-lambda-test-tool-3.1.exe",
+      "args": ["--port", "5003"],
+      "cwd": "${workspaceFolder}/src/FTS.Precatorio.StepFunction/Lambda.CreateAssets",
+      "console": "internalConsole",
+      "stopAtEntry": false,
+      "internalConsoleOptions": "openOnSessionStart"
+    },
+    {
+      "name": "Lambda (CreateTicket)",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build",
+      "program": "${env:USERPROFILE}/.dotnet/tools/dotnet-lambda-test-tool-3.1.exe",
+      "args": ["--port", "5005"],
+      "cwd": "${workspaceFolder}/src/FTS.Precatorio.StepFunction/Lambda.CreateTicket",
+      "console": "internalConsole",
+      "stopAtEntry": false,
+      "internalConsoleOptions": "openOnSessionStart"
+    },
+    {
+      "name": "Lambda (CreateTrade)",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build",
+      "program": "${env:USERPROFILE}/.dotnet/tools/dotnet-lambda-test-tool-3.1.exe",
+      "args": ["--port", "5007"],
+      "cwd": "${workspaceFolder}/src/FTS.Precatorio.StepFunction/Lambda.CreateTrade",
+      "console": "internalConsole",
+      "stopAtEntry": false,
+      "internalConsoleOptions": "openOnSessionStart"
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Proxy/SQS/CreateAssets/CreateTicket/CreateTrade",
+      "configurations": [
+        "Lambda (Proxy)",
+        "Lambda (SQS)",
+        "Lambda (CreateAssets)",
+        "Lambda (CreateTicket)",
+        "Lambda (CreateTrade)"
+      ]
+    }
   ]
 }

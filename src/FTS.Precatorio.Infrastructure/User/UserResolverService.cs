@@ -24,7 +24,7 @@ namespace FTS.Precatorio.Infrastructure.User
             return new Guid(buff[2]);
         }
 
-        public string GetUser()
+        public string GetUserName()
         {
             var token = GetClaim();
             if (token == null) return null;

@@ -34,14 +34,14 @@ namespace FTS.Precatorio.Domain.Trade.Services
                 return;
             }
 
-            await _tradeRepository.Add(trade);
+            await _tradeRepository.SaveAsync(trade);
         }
 
         public async Task<Trade> GetTradeById(Ulid tradeId)
         {
             if (tradeId != Ulid.Empty)
             {
-                var data = await _tradeRepository.GetById(tradeId);
+                var data = await _tradeRepository.GetTradeAsync(tradeId);
 
                 return data;
             }

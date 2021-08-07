@@ -24,8 +24,11 @@ namespace FTS.Precatorio.Dto.Trade
 
         public TradeEntity Map()
         {
-            var data = new TradeEntity();
-            data.WhithCode(Code);
+            var data = new TradeEntity
+            {
+                Ulid = Id ?? Ulid.NewUlid(),
+                Code = Code
+            };
 
             return data;
         }

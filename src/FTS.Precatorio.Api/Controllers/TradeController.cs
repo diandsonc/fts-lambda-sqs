@@ -22,7 +22,7 @@ namespace FTS.Precatorio.Api.Controllers
         {
             var data = await _tradeService.GetTradeById(id);
 
-            return Response(null);
+            return Response(data);
         }
 
         [HttpPost]

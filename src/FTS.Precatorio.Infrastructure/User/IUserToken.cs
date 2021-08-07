@@ -4,7 +4,7 @@ namespace FTS.Precatorio.Infrastructure.User
 {
     public interface IUserToken
     {
-        string GetUser();
+        string GetUserName();
         Guid GetUserId();
         Guid GetTenantId();
     }

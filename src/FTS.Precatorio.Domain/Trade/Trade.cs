@@ -3,30 +3,31 @@ using Amazon.DynamoDBv2.DataModel;
 
 namespace FTS.Precatorio.Domain.Trade
 {
-    [DynamoDBTable("test_trade")]
+    [DynamoDBTable(DynamoDBAttributeNames.Table)]
     public partial class Trade
     {
-        [DynamoDBHashKey("PK")]
+        [DynamoDBHashKey(DynamoDBAttributeNames.PartitionKey)]
         public string PartitionKey { get; set; }
 
-        [DynamoDBRangeKey("SK")]
+        [DynamoDBRangeKey(DynamoDBAttributeNames.SortKey)]
         public string SortKey { get; set; }
 
+        [DynamoDBProperty(typeof(DynamoDBUlidConverter))]
         public Ulid Ulid { get; set; }
 
+        [DynamoDBProperty]
         public string Code { get; set; }
 
-        public DateTime DataInc { get; set; }
+        [DynamoDBProperty]
+        public DateTime CreatedAt { get; set; }
 
-        public string UsuInc { get; set; }
+        [DynamoDBProperty]
+        public DateTime? LastAttemptAt { get; set; }
 
-        public Trade() { }
+        [DynamoDBProperty]
+        public string CreatedBy { get; set; }
 
-        public void CreateKey(Guid tenantId)
-        {
-            Ulid = Ulid.NewUlid();
-            PartitionKey = tenantId.ToString();
-            SortKey = $"Trade#{Ulid}";
-        }
+        [DynamoDBProperty]
+        public string LastAttemptUser { get; set; }
     }
 }
