@@ -17,10 +17,10 @@ namespace FTS.Precatorio.Infrastructure.Database.DynamoDB.Repository
             Db = context;
         }
 
-        public bool IgnoreGroup
+        public bool IgnoreTenant
         {
-            get { return Db.IgnoreGroup; }
-            set { Db.IgnoreGroup = value; }
+            get { return Db.IgnoreTenant; }
+            set { Db.IgnoreTenant = value; }
         }
 
         public void Dispose()
@@ -46,7 +46,7 @@ namespace FTS.Precatorio.Infrastructure.Database.DynamoDB.Repository
             await Db.SaveChangesAsync<TEntity>(obj, cancellationToken.Token);
         }
 
-        public virtual async Task<TEntity> GetById(Guid id)
+        public virtual async Task<TEntity> GetById(Ulid id)
         {
             var data = await Db.LoadAsync<TEntity>(id);
 

@@ -11,18 +11,18 @@ namespace FTS.Precatorio.Infrastructure.Database.DynamoDB.Context
 {
     public abstract class CoreContext : DynamoDBContext, ICoreContext
     {
-        public Guid Id { get; }
-        public bool IgnoreGroup { get; set; }
-        private Guid _control_GroupId { get; set; }
+        public Ulid Id { get; }
+        public bool IgnoreTenant { get; set; }
+        private Guid _control_TenantId { get; set; }
 
         public CoreContext(IAmazonDynamoDB client) : base(client)
         {
-            Id = Guid.NewGuid();
+            Id = Ulid.NewUlid();
         }
 
         public CoreContext(IUserToken token, IAmazonDynamoDB client) : this(client)
         {
-            _control_GroupId = token.GetControlId();
+            _control_TenantId = token.GetTenantId();
         }
 
         public T Add<T>(T entity)
@@ -82,17 +82,17 @@ namespace FTS.Precatorio.Infrastructure.Database.DynamoDB.Context
 
         public DynamoDBOperationConfig ConfigureTenantFilter()
         {
-            if (IgnoreGroup) return null;
+            if (IgnoreTenant) return null;
 
             var config = new DynamoDBOperationConfig
             {
-                QueryFilter = new List<ScanCondition> { new ScanCondition("GroupId", ScanOperator.Equal, _control_GroupId) }
+                QueryFilter = new List<ScanCondition> { new ScanCondition("PK", ScanOperator.Equal, _control_TenantId) }
             };
 
             return config;
         }
 
-        public Task<TEntity> LoadAsync<TEntity>(Guid id)
+        public Task<TEntity> LoadAsync<TEntity>(Ulid id)
         {
             return LoadAsync<TEntity>(id, ConfigureTenantFilter());
         }

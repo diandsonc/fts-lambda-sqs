@@ -1,5 +1,3 @@
-
-
 using System;
 using System.Threading.Tasks;
 
@@ -9,6 +7,6 @@ namespace FTS.Precatorio.Domain.Trade.Repository
     {
         void SendMessage(string message);
         Task Add(Trade obj);
-        Task<Trade> GetById(Guid id);
+        Task<Trade> GetById(Ulid id);
     }
 }

@@ -6,6 +6,6 @@ namespace FTS.Precatorio.Infrastructure.User
     {
         string GetUser();
         Guid GetUserId();
-        Guid GetControlId();
+        Guid GetTenantId();
     }
 }

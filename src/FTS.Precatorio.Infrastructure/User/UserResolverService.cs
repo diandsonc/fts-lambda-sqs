@@ -8,14 +8,14 @@ namespace FTS.Precatorio.Infrastructure.User
     public class UserResolverService : IUserToken
     {
         private readonly IHttpContextAccessor _context;
-        public static string _ClainIdFormat = "{0}|{1}|{2}"; //ID|Name|GroupID
+        public static string _ClainIdFormat = "{0}|{1}|{2}"; //ID|Name|TenantID
 
         public UserResolverService(IHttpContextAccessor context)
         {
             _context = context;
         }
 
-        public Guid GetControlId()
+        public Guid GetTenantId()
         {
             var token = GetClaim();
             if (token == null) return new Guid();

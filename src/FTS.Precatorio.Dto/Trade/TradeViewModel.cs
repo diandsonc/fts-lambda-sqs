@@ -6,7 +6,7 @@ namespace FTS.Precatorio.Dto.Trade
 {
     public class TradeViewModel
     {
-        public Guid? Id { get; set; }
+        public Ulid? Id { get; set; }
 
         [Required]
         public string Code { get; set; }
@@ -15,7 +15,7 @@ namespace FTS.Precatorio.Dto.Trade
         {
             var data = new TradeViewModel
             {
-                Id = trade.Id,
+                Id = trade.Ulid,
                 Code = trade.Code
             };
 
@@ -24,7 +24,8 @@ namespace FTS.Precatorio.Dto.Trade
 
         public TradeEntity Map()
         {
-            var data = new TradeEntity.Factory().Create(Code, Guid.Empty);
+            var data = new TradeEntity();
+            data.WhithCode(Code);
 
             return data;
         }

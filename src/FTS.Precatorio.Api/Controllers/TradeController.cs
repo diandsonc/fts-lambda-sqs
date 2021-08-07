@@ -18,7 +18,7 @@ namespace FTS.Precatorio.Api.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> Get(Guid id)
+        public async Task<IActionResult> Get(Ulid id)
         {
             var data = await _tradeService.GetTradeById(id);
 

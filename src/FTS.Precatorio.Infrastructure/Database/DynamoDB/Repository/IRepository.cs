@@ -10,10 +10,10 @@ namespace FTS.Precatorio.Infrastructure.Database.DynamoDB.Repository
     {
         Task Update(TEntity obj);
         Task Add(TEntity obj);
-        Task<TEntity> GetById(Guid id);
+        Task<TEntity> GetById(Ulid id);
         Task<IEnumerable<TEntity>> FindAsync(ScanFilter conditions, int limit, string paginationToken = null);
         Task<IEnumerable<TEntity>> GetAll(int limit, string paginationToken = null);
         ICoreContext GetContext();
-        bool IgnoreGroup { get; set; }
+        bool IgnoreTenant { get; set; }
     }
 }

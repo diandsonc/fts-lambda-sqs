@@ -19,7 +19,7 @@ namespace FTS.Precatorio.Domain.Trade.Services
 
         public void AddToQueue(Trade trade)
         {
-            var message = JsonSerializer.Serialize(new { Controller = "trade", Action = "insert", trade.Id });
+            var message = JsonSerializer.Serialize(new { Controller = "trade", Action = "insert", trade.Ulid });
 
             _tradeRepository.SendMessage(message);
         }
@@ -37,9 +37,9 @@ namespace FTS.Precatorio.Domain.Trade.Services
             await _tradeRepository.Add(trade);
         }
 
-        public async Task<Trade> GetTradeById(Guid tradeId)
+        public async Task<Trade> GetTradeById(Ulid tradeId)
         {
-            if (tradeId != Guid.Empty)
+            if (tradeId != Ulid.Empty)
             {
                 var data = await _tradeRepository.GetById(tradeId);
 
