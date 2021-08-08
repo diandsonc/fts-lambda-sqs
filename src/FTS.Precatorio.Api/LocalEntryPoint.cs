@@ -1,7 +1,5 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Server.HttpSys;
 using Microsoft.Extensions.Hosting;
 
 namespace FTS.Precatorio.Api
@@ -20,7 +18,13 @@ namespace FTS.Precatorio.Api
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.UseStartup<Startup>();
+                    webBuilder.UseStartup<Startup>()
+                        .UseHttpSys(options =>
+                        {
+                            options.Authentication.Schemes = AuthenticationSchemes.NTLM;
+                            options.EnableResponseCaching = false;
+                            options.Authentication.AllowAnonymous = false;
+                        });
                 });
     }
 }

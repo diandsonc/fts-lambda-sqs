@@ -4,6 +4,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using Amazon.Lambda.Core;
 using Amazon.Lambda.SQSEvents;
+using FTS.Precatorio.Domain.Notifications;
 using FTS.Precatorio.Domain.Trade.Services;
 using FTS.Precatorio.Dto.Trade;
 using FTS.Precatorio.Infrastructure.IoC;
@@ -18,7 +19,8 @@ namespace Lambda.SQSTradeToStepFunction
 {
     public class Function
     {
-        private TradeService TradeService { get; }
+        private TradeService _tradeService { get; }
+        private IDomainNotification _notifications { get; }
 
         public Function()
         {
@@ -26,8 +28,11 @@ namespace Lambda.SQSTradeToStepFunction
             var configuration = LambdaConfiguration.Configuration;
 
             ConfigureServices(serviceCollection, configuration);
+
             var serviceProvider = serviceCollection.BuildServiceProvider();
-            TradeService = serviceProvider.GetService<TradeService>();
+
+            _tradeService = serviceProvider.GetService<TradeService>();
+            _notifications = serviceProvider.GetService<IDomainNotification>();
         }
 
         public async Task FunctionHandler(SQSEvent evnt, ILambdaContext context)
@@ -49,7 +54,15 @@ namespace Lambda.SQSTradeToStepFunction
 
                 var trade = JsonSerializer.Deserialize<TradeViewModel>(message.Body);
 
-                await TradeService.Add(trade.Map());
+                await _tradeService.Add(trade.Map());
+
+                if (_notifications.HasNotifications())
+                {
+                    context.Logger.LogLine($"Error on create trade {trade.Id}: {JsonSerializer.Serialize(_notifications.GetNotifications())}");
+
+                    // send to sns error on data validation
+                    return;
+                }
 
                 context.Logger.LogLine($"Trade created {trade.Id}");
 

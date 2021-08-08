@@ -12,7 +12,7 @@ namespace FTS.Precatorio.Domain
 
             if (ulid == null) throw new ArgumentOutOfRangeException();
 
-            string data = ulid.ToString();
+            var data = ulid.ToString();
 
             DynamoDBEntry entry = new Primitive { Value = data };
 

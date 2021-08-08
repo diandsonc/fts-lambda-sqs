@@ -8,18 +8,18 @@ namespace FTS.Precatorio.Infrastructure.Database.DynamoDB.Context
     public class FTSPrecatorioContext : DynamoDBContext
     {
         private Guid _control_TenantId { get; set; }
-        private string _control_UserName { get; set; }
+        private string _control_UserLogin { get; set; }
 
         public FTSPrecatorioContext(IAmazonDynamoDB client) : base(client) { }
 
         public FTSPrecatorioContext(IUserToken token, IAmazonDynamoDB client) : base(client)
         {
             _control_TenantId = token.GetTenantId();
-            _control_UserName = token.GetUserName();
+            _control_UserLogin = token.GetUserLogin();
         }
 
         public Guid GetTenantId() => _control_TenantId;
 
-        public string GetUsername() => _control_UserName;
+        public string GetUserLogin() => _control_UserLogin;
     }
 }

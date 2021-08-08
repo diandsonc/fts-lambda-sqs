@@ -7,6 +7,7 @@ obj/
 FolderProfile.pubxml
 CustomProfile.pubxml.user
 /Bin
-/TestResults
+*/TestResults
+*/coverage.*
 teste.pfx
 wwwroot/

@@ -14,5 +14,10 @@
     dotnet lambda-test-tool-3.1 --path <absolute-directory> --port <port-number> --no-launch-window 
     ```
 
-    Note: You can use `--payload <payload>` to execute auto file
-	Note: In vs code use F5 and choose the profile project to start
+    Note: You can use `--payload <payload>` to execute auto file or in vs code use `ctrl + shift + D` and choose the profile project to start
+
+* Testing:
+
+    ```shell
+    dotnet test --no-restore --logger trx //p:CollectCoverage=true //p:CoverletOutputFormat=opencover /p:Exclude=[xunit.*]*
+    ```

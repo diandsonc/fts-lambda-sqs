@@ -17,6 +17,7 @@ namespace FTS.Precatorio.Domain.Trade
 
             filter.AddCondition(DynamoDBAttributeNames.PartitionKey, QueryOperator.Equal, key.PartitionKey);
             filter.AddCondition(DynamoDBAttributeNames.SortKey, QueryOperator.Equal, key.SortKey);
+
             ScanByCode(filter);
 
             var queryConfig = new QueryOperationConfig

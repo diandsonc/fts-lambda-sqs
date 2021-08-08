@@ -48,7 +48,7 @@ namespace FTS.Precatorio.Infrastructure.Database.DynamoDB.Repository
             var key = new TradeKey(trade, _dbContext.GetTenantId());
 
             trade.WithKey(key.PartitionKey, key.SortKey);
-            trade.AddLogData(_dbContext.GetUsername());
+            trade.AddLogData(_dbContext.GetUserLogin());
 
 
             await _dbContext.SaveAsync<Trade>(trade);
