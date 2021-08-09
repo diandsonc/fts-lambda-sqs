@@ -21,3 +21,9 @@
     ```shell
     dotnet test --no-restore --logger trx //p:CollectCoverage=true //p:CoverletOutputFormat=opencover /p:Exclude=[xunit.*]*
     ```
+
+* Deploy lambda:
+
+    ```shell
+    dotnet lambda deploy-function <my-function>
+    ```

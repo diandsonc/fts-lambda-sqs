@@ -1,3 +1,4 @@
+using System;
 using System.Threading;
 using Amazon.SimpleNotificationService;
 using Amazon.SimpleNotificationService.Model;
@@ -62,18 +63,23 @@ namespace FTS.Precatorio.Infrastructure.AWS
 
         public void SendMessageToStepFunction(string topic, string messageBody)
         {
+            var arn = GetKeyValue("AWS:StepFunction:CreateTrade");
+
             var sendMessageRequest = new StartExecutionRequest
             {
                 Input = messageBody,
-                Name = "SchedulingEngine",
-                StateMachineArn = "arn:aws:states:us-west-2:<SomeNumber>:stateMachine:SchedulingEngine"
+                Name = $"{topic}_{Ulid.NewUlid()}",
+                StateMachineArn = arn
             };
 
-            // _sfClient.StartExecutionAsync(sendMessageRequest).Wait();
+            _sfClient.StartExecutionAsync(sendMessageRequest).Wait();
 
-            var sendMessageExecution = _sfClient.StartExecutionAsync(sendMessageRequest);
+            // var sendMessageExecution = _sfClient.StartExecutionAsync(sendMessageRequest);
+            // var response = GetResponse(sendMessageExecution.Result.ExecutionArn);
+        }
 
-            var executionArn = sendMessageExecution.Result.ExecutionArn;
+        private string GetResponse(string executionArn)
+        {
             var executionRequest = new DescribeExecutionRequest { ExecutionArn = executionArn };
             var runnig = true;
             var output = string.Empty;
@@ -90,6 +96,8 @@ namespace FTS.Precatorio.Infrastructure.AWS
                     output = result.Output;
             }
             while (runnig);
+
+            return output;
         }
     }
 }

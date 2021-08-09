@@ -1,15 +1,11 @@
 using System;
-using System.Linq;
-using System.Text.Json;
-using System.Threading.Tasks;
 using Amazon.Lambda.Core;
 using Amazon.Lambda.SQSEvents;
-using FTS.Precatorio.Domain.Notifications;
-using FTS.Precatorio.Domain.Trade.Services;
-using FTS.Precatorio.Dto.Trade;
+using FTS.Precatorio.Infrastructure.AWS;
 using FTS.Precatorio.Infrastructure.IoC;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using static Amazon.Lambda.SQSEvents.SQSEvent;
 
 
 // Assembly attribute to enable the Lambda function's JSON input to be converted into a .NET class.
@@ -19,8 +15,7 @@ namespace Lambda.SQSTradeToStepFunction
 {
     public class Function
     {
-        private TradeService _tradeService { get; }
-        private IDomainNotification _notifications { get; }
+        private IAWSService _awsService { get; }
 
         public Function()
         {
@@ -31,46 +26,33 @@ namespace Lambda.SQSTradeToStepFunction
 
             var serviceProvider = serviceCollection.BuildServiceProvider();
 
-            _tradeService = serviceProvider.GetService<TradeService>();
-            _notifications = serviceProvider.GetService<IDomainNotification>();
+            _awsService = serviceProvider.GetService<IAWSService>();
         }
 
-        public async Task FunctionHandler(SQSEvent evnt, ILambdaContext context)
+        public void FunctionHandler(SQSEvent evnt, ILambdaContext context)
         {
-            if (evnt.Records.Count > 1) throw new InvalidOperationException("Only one message by time");
-
-            var message = evnt.Records.FirstOrDefault();
-
-            if (message == null) return;
-
-            await ProcessMessageAsync(message, context);
+            foreach (var message in evnt.Records)
+            {
+                if (message != null)
+                    ProcessMessage(message, context);
+            }
         }
 
-        private async Task ProcessMessageAsync(SQSEvent.SQSMessage message, ILambdaContext context)
+        private void ProcessMessage(SQSMessage message, ILambdaContext context)
         {
             try
             {
                 context.Logger.LogLine($"Processed message {message.Body}");
 
-                var trade = JsonSerializer.Deserialize<TradeViewModel>(message.Body);
+                _awsService.SendMessageToStepFunction("CreateTrade", message.Body);
 
-                await _tradeService.Add(trade.Map());
-
-                if (_notifications.HasNotifications())
-                {
-                    context.Logger.LogLine($"Error on create trade {trade.Id}: {JsonSerializer.Serialize(_notifications.GetNotifications())}");
-
-                    // send to sns error on data validation
-                    return;
-                }
-
-                context.Logger.LogLine($"Trade created {trade.Id}");
-
-                //send to next queue
+                context.Logger.LogLine($"Message sent to step function");
             }
             catch (Exception ex)
             {
                 context.Logger.LogLine($"Error: {ex.Message}");
+
+                // TODO send to sns
             }
         }
 

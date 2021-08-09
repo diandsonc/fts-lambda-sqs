@@ -19,7 +19,7 @@ namespace FTS.Precatorio.Domain.Trade.Services
 
         public void AddToQueue(Trade trade)
         {
-            var message = JsonSerializer.Serialize(new { Controller = "trade", Action = "insert", trade.Ulid });
+            var message = JsonSerializer.Serialize(trade);
 
             _tradeRepository.SendMessage(message);
         }

@@ -2,7 +2,7 @@
   "Records": [
     {
       "MessageId": "01ARZ3NDEKTSV4RRFFQ69G5FAV",
-      "Body": "{ \"input\": \"Something\" }"
+      "Body": "{ \"Code\": \"123456\" }"
     }
   ]
 }

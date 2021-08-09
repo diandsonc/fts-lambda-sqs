@@ -24,7 +24,7 @@ namespace FTS.Precatorio.Infrastructure.Database.DynamoDB.Repository
 
         public void SendMessage(string message)
         {
-            var queueName = _awsService.GetKeyValue("AWS:SQS:Queues:QueueTrade");
+            var queueName = _awsService.GetKeyValue("AWS:SQS:QueueTrade");
 
             _awsService.SendMessageToSQS(queueName, message);
         }

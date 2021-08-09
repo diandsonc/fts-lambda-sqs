@@ -1,9 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
 using Amazon.Lambda.Core;
+using FTS.Precatorio.Domain.Notifications;
+using FTS.Precatorio.Domain.Trade.Services;
+using FTS.Precatorio.Infrastructure.IoC;
+using Lambda.Shared;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
 // Assembly attribute to enable the Lambda function's JSON input to be converted into a .NET class.
 [assembly: LambdaSerializer(typeof(Amazon.Lambda.Serialization.SystemTextJson.DefaultLambdaJsonSerializer))]
@@ -12,16 +13,34 @@ namespace Lambda.CreateTicket
 {
     public class Function
     {
-        
-        /// <summary>
-        /// A simple function that takes a string and does a ToUpper
-        /// </summary>
-        /// <param name="input"></param>
-        /// <param name="context"></param>
-        /// <returns></returns>
-        public string FunctionHandler(string input, ILambdaContext context)
+        private TradeService _tradeService { get; }
+        private IDomainNotification _notifications { get; }
+
+        public Function()
         {
-            return input?.ToUpper();
+            var serviceCollection = new ServiceCollection();
+            var configuration = LambdaConfiguration.Configuration;
+
+            ConfigureServices(serviceCollection, configuration);
+
+            var serviceProvider = serviceCollection.BuildServiceProvider();
+
+            _tradeService = serviceProvider.GetService<TradeService>();
+            _notifications = serviceProvider.GetService<IDomainNotification>();
+        }
+
+        public string FunctionHandler(object input, ILambdaContext context)
+        {
+            context.Logger.LogLine($"Processed message {input}");
+
+            context.Logger.LogLine($"Ticket created");
+
+            return input.ToString();
+        }
+
+        private static void ConfigureServices(IServiceCollection serviceCollection, IConfiguration configuration)
+        {
+            IoCInfra.RegisterServices(serviceCollection, configuration);
         }
     }
 }
