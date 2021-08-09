@@ -1,4 +1,4 @@
-namespace FTS.Precatorio.Domain
+namespace FTS.Precatorio.Domain.Converters
 {
     public class DynamoDBAttributeNames
     {

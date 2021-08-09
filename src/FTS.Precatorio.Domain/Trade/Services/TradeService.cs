@@ -3,6 +3,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using FTS.Precatorio.Domain.Notifications;
 using FTS.Precatorio.Domain.Trade.Repository;
+using FTS.Precatorio.Domain.Trade.Validations;
 
 namespace FTS.Precatorio.Domain.Trade.Services
 {
@@ -26,7 +27,7 @@ namespace FTS.Precatorio.Domain.Trade.Services
 
         public async Task Add(Trade trade)
         {
-            var validate = new CreateTradeValidator().Validate(trade);
+            var validate = new CreateTradeValidation().Validate(trade);
 
             if (!validate.IsValid)
             {
