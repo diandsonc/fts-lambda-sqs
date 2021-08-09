@@ -1,6 +1,6 @@
 using System;
 
-namespace FTS.Precatorio.Domain.Trade
+namespace FTS.Precatorio.Domain.Trades
 {
     public class TradeKey
     {

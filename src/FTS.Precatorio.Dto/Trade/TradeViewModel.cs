@@ -1,8 +1,8 @@
 using System;
 using System.ComponentModel.DataAnnotations;
-using TradeEntity = FTS.Precatorio.Domain.Trade.Trade;
+using TradeEntity = FTS.Precatorio.Domain.Trades.Trade;
 
-namespace FTS.Precatorio.Dto.Trade
+namespace FTS.Precatorio.Dto.Trades
 {
     public class TradeViewModel
     {

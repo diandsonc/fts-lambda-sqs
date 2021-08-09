@@ -1,8 +1,8 @@
 using System;
 using System.Threading.Tasks;
 using FTS.Precatorio.Domain.Notifications;
-using FTS.Precatorio.Domain.Trade.Services;
-using FTS.Precatorio.Dto.Trade;
+using FTS.Precatorio.Domain.Trades.Services;
+using FTS.Precatorio.Dto.Trades;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FTS.Precatorio.Api.Controllers

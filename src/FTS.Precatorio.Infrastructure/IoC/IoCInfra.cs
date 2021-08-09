@@ -9,9 +9,9 @@ using FTS.Precatorio.Infrastructure.AWS;
 using FTS.Precatorio.Infrastructure.Database.DynamoDB.Repository;
 using FTS.Precatorio.Infrastructure.Database.DynamoDB.Context;
 using FTS.Precatorio.Infrastructure.User;
-using FTS.Precatorio.Domain.Trade.Services;
+using FTS.Precatorio.Domain.Trades.Services;
 using FTS.Precatorio.Domain.Notifications;
-using FTS.Precatorio.Domain.Trade.Repository;
+using FTS.Precatorio.Domain.Trades.Repository;
 
 namespace FTS.Precatorio.Infrastructure.IoC
 {

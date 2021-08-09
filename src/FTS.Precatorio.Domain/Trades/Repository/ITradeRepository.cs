@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace FTS.Precatorio.Domain.Trade.Repository
+namespace FTS.Precatorio.Domain.Trades.Repository
 {
     public interface ITradeRepository
     {

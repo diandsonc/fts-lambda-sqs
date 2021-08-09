@@ -1,6 +1,6 @@
 using FluentValidation;
 
-namespace FTS.Precatorio.Domain.Trade.Validations
+namespace FTS.Precatorio.Domain.Trades.Validations
 {
     public class CreateTradeValidation : AbstractValidator<Trade>
     {

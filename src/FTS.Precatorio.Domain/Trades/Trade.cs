@@ -2,7 +2,7 @@ using System;
 using Amazon.DynamoDBv2.DataModel;
 using FTS.Precatorio.Domain.Converters;
 
-namespace FTS.Precatorio.Domain.Trade
+namespace FTS.Precatorio.Domain.Trades
 {
     [DynamoDBTable(DynamoDBAttributeNames.Table)]
     public partial class Trade

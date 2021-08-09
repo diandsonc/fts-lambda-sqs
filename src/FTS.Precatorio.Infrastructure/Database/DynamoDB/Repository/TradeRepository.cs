@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using FTS.Precatorio.Domain.Trade;
-using FTS.Precatorio.Domain.Trade.Repository;
+using FTS.Precatorio.Domain.Trades;
+using FTS.Precatorio.Domain.Trades.Repository;
 using FTS.Precatorio.Infrastructure.AWS;
 using FTS.Precatorio.Infrastructure.Database.DynamoDB.Context;
 using Microsoft.Extensions.Configuration;

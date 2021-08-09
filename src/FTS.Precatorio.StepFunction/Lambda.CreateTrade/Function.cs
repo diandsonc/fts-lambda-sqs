@@ -1,8 +1,8 @@
 using System.Text.Json;
 using Amazon.Lambda.Core;
 using FTS.Precatorio.Domain.Notifications;
-using FTS.Precatorio.Domain.Trade.Services;
-using FTS.Precatorio.Dto.Trade;
+using FTS.Precatorio.Domain.Trades.Services;
+using FTS.Precatorio.Dto.Trades;
 using FTS.Precatorio.Infrastructure.IoC;
 using Lambda.Shared;
 using Microsoft.Extensions.Configuration;

@@ -2,10 +2,10 @@ using System;
 using System.Text.Json;
 using System.Threading.Tasks;
 using FTS.Precatorio.Domain.Notifications;
-using FTS.Precatorio.Domain.Trade.Repository;
-using FTS.Precatorio.Domain.Trade.Validations;
+using FTS.Precatorio.Domain.Trades.Repository;
+using FTS.Precatorio.Domain.Trades.Validations;
 
-namespace FTS.Precatorio.Domain.Trade.Services
+namespace FTS.Precatorio.Domain.Trades.Services
 {
     public class TradeService
     {
