@@ -1,5 +1,5 @@
 using System;
-using FTS.Precatorio.Infrastructure.Domain;
+using FTS.Precatorio.Infrastructure.Countries;
 using Microsoft.AspNetCore.Http;
 
 namespace FTS.Precatorio.Infrastructure.User
@@ -15,7 +15,7 @@ namespace FTS.Precatorio.Infrastructure.User
 
         public Guid GetTenantId()
         {
-            return TenantIdentify.Brazil;
+            return CountryIds.Brazil;
         }
 
         public string GetUserLogin()

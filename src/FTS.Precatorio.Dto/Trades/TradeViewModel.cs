@@ -43,7 +43,7 @@ namespace FTS.Precatorio.Dto.Trades
                 ExternalId = ExternalId,
                 Code = Code,
                 Type = Type,
-                Tickets = Tickets.Select(x => x.Map()).ToList()
+                Tickets = Tickets != null ? Tickets.Select(x => x.Map()).ToList() : null
             };
 
             return data;

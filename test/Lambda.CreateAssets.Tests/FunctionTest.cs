@@ -1,5 +1,8 @@
 using Xunit;
 using Amazon.Lambda.TestUtilities;
+using FTS.Precatorio.StepFunction.Trade.Lambdas.Step3.CreateAssets;
+using FTS.Precatorio.Dto.Trades;
+using System.Text.Json;
 
 namespace Lambda.CreateAssets.Tests
 {
@@ -8,13 +11,12 @@ namespace Lambda.CreateAssets.Tests
         [Fact]
         public void TestCreateAssets()
         {
-
-            // Invoke the lambda function and confirm the string was upper cased.
             var function = new Function();
             var context = new TestLambdaContext();
-            var result = function.FunctionHandler("{ \"Code\": \"123456\" }", context);
+            var message = JsonSerializer.Serialize(new TradeViewModel { Code = "92115" });
+            var result = function.FunctionHandler(message, context) as TradeViewModel;
 
-            Assert.Equal("{ \"Code\": \"123456\" }", result);
+            Assert.Equal("92115", result.Code);
         }
     }
 }
