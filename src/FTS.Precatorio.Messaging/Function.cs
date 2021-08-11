@@ -2,15 +2,9 @@ using System;
 using Amazon.Lambda.Core;
 using Amazon.Lambda.SQSEvents;
 using FTS.Precatorio.Infrastructure.AWS;
-using FTS.Precatorio.Infrastructure.IoC;
 using FTS.Precatorio.Messaging.Configuration;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using static Amazon.Lambda.SQSEvents.SQSEvent;
-
-
-// Assembly attribute to enable the Lambda function's JSON input to be converted into a .NET class.
-[assembly: LambdaSerializer(typeof(Amazon.Lambda.Serialization.SystemTextJson.DefaultLambdaJsonSerializer))]
 
 namespace FTS.Precatorio.Messaging
 {
@@ -18,16 +12,13 @@ namespace FTS.Precatorio.Messaging
     {
         private IAWSService _awsService { get; }
 
-        public Function()
+        public Function() : this(new LambdaConfiguration().BuildServiceProvider()) { }
+
+        public Function(IServiceProvider serviceProvider)
         {
-            var serviceCollection = new ServiceCollection();
-            var configuration = LambdaConfiguration.Configuration;
+            if (serviceProvider == null) throw new ArgumentException(nameof(serviceProvider));
 
-            ConfigureServices(serviceCollection, configuration);
-
-            var serviceProvider = serviceCollection.BuildServiceProvider();
-
-            _awsService = serviceProvider.GetService<IAWSService>();
+            _awsService = serviceProvider.GetRequiredService<IAWSService>();
         }
 
         public void FunctionHandler(SQSEvent evnt, ILambdaContext context)
@@ -55,11 +46,6 @@ namespace FTS.Precatorio.Messaging
 
                 // TODO send to sns
             }
-        }
-
-        private static void ConfigureServices(IServiceCollection serviceCollection, IConfiguration configuration)
-        {
-            IoCInfra.RegisterServices(serviceCollection, configuration);
         }
     }
 }

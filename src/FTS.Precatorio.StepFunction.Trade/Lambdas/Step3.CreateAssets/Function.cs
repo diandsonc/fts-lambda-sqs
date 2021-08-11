@@ -1,15 +1,11 @@
+using System;
 using System.Text.Json;
 using Amazon.Lambda.Core;
 using FTS.Precatorio.Domain.Notifications;
 using FTS.Precatorio.Domain.Trades.Services;
 using FTS.Precatorio.Dto.Trades;
-using FTS.Precatorio.Infrastructure.IoC;
-using FTS.Precatorio.StepFunction.Trade.Shared.Configuration;
-using Microsoft.Extensions.Configuration;
+using FTS.Precatorio.StepFunction.Trade.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-
-// Assembly attribute to enable the Lambda function's JSON input to be converted into a .NET class.
-[assembly: LambdaSerializer(typeof(Amazon.Lambda.Serialization.SystemTextJson.DefaultLambdaJsonSerializer))]
 
 namespace FTS.Precatorio.StepFunction.Trade.Lambdas.Step3.CreateAssets
 {
@@ -18,17 +14,14 @@ namespace FTS.Precatorio.StepFunction.Trade.Lambdas.Step3.CreateAssets
         private TradeService _tradeService { get; }
         private IDomainNotification _notifications { get; }
 
-        public Function()
+        public Function() : this(new LambdaConfiguration().BuildServiceProvider()) { }
+
+        public Function(IServiceProvider serviceProvider)
         {
-            var serviceCollection = new ServiceCollection();
-            var configuration = LambdaConfiguration.Configuration;
+            if (serviceProvider == null) throw new ArgumentException(nameof(serviceProvider));
 
-            ConfigureServices(serviceCollection, configuration);
-
-            var serviceProvider = serviceCollection.BuildServiceProvider();
-
-            _tradeService = serviceProvider.GetService<TradeService>();
-            _notifications = serviceProvider.GetService<IDomainNotification>();
+            _tradeService = serviceProvider.GetRequiredService<TradeService>();
+            _notifications = serviceProvider.GetRequiredService<IDomainNotification>();
         }
 
         public object FunctionHandler(object input, ILambdaContext context)
@@ -40,11 +33,6 @@ namespace FTS.Precatorio.StepFunction.Trade.Lambdas.Step3.CreateAssets
             context.Logger.LogLine($"Assets created");
 
             return trade;
-        }
-
-        private static void ConfigureServices(IServiceCollection serviceCollection, IConfiguration configuration)
-        {
-            IoCInfra.RegisterServices(serviceCollection, configuration);
         }
     }
 }

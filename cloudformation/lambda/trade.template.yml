@@ -1,0 +1,67 @@
+---
+AWSTemplateFormatVersion: "2010-09-09"
+Description: "Create ticket serverless"
+Parameters:
+  CodeBucket:
+    Type: "String"
+    Default: "publish-lambda-trade"
+
+  CodeKey:
+    Type: "String"
+    Default: "FTS.Precatorio.StepFunction.Trade.zip"
+
+  Dev:
+    Type: "String"
+    Default: "Stage"
+
+Resources:
+  LambdaStep1CreateTrade:
+    Type: "AWS::Lambda::Function"
+    Properties:
+      Description: "Create Trade"
+      FunctionName: "Step1CreateTrade"
+      Handler: "FTS.Precatorio.StepFunction.Trade::FTS.Precatorio.StepFunction.Trade.Lambdas.Step1.CreateTrade.Function::FunctionHandler"
+      Runtime: "dotnetcore3.1"
+      MemorySize: 256
+      Timeout: 30
+      Role: !Sub "arn:aws:iam::${AWS::AccountId}:role/role-lambda"
+      Code:
+        S3Bucket: !Ref "CodeBucket"
+        S3Key: !Ref CodeKey
+      Environment:
+        Variables:
+          ASPNETCORE_ENVIRONMENT: !Ref "Dev"
+
+  LambdaStep2CreateTicket:
+    Type: "AWS::Lambda::Function"
+    Properties:
+      Description: "Create Ticket"
+      FunctionName: "Step2CreateTicket"
+      Handler: "FTS.Precatorio.StepFunction.Trade::FTS.Precatorio.StepFunction.Trade.Lambdas.Step2.CreateTicket.Function::FunctionHandler"
+      Runtime: "dotnetcore3.1"
+      MemorySize: 256
+      Timeout: 30
+      Role: !Sub "arn:aws:iam::${AWS::AccountId}:role/role-lambda"
+      Code:
+        S3Bucket: !Ref "CodeBucket"
+        S3Key: !Ref CodeKey
+      Environment:
+        Variables:
+          ASPNETCORE_ENVIRONMENT: !Ref "Dev"
+
+  LambdaStep3CreateAssets:
+    Type: "AWS::Lambda::Function"
+    Properties:
+      Description: "Create Assets"
+      FunctionName: "Step3CreateAssets"
+      Handler: "FTS.Precatorio.StepFunction.Trade::FTS.Precatorio.StepFunction.Trade.Lambdas.Step3.CreateAssets.Function::FunctionHandler"
+      Runtime: "dotnetcore3.1"
+      MemorySize: 256
+      Timeout: 30
+      Role: !Sub "arn:aws:iam::${AWS::AccountId}:role/role-lambda"
+      Code:
+        S3Bucket: !Ref "CodeBucket"
+        S3Key: !Ref CodeKey
+      Environment:
+        Variables:
+          ASPNETCORE_ENVIRONMENT: !Ref "Dev"

@@ -22,8 +22,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\FTS.Precatorio.Dto\FTS.Precatorio.Dto.csproj" />
-    <ProjectReference Include="..\..\FTS.Precatorio.Domain\FTS.Precatorio.Domain.csproj" />
-    <ProjectReference Include="..\..\FTS.Precatorio.Infrastructure\FTS.Precatorio.Infrastructure.csproj" />
+    <ProjectReference Include="..\FTS.Precatorio.Dto\FTS.Precatorio.Dto.csproj" />
+    <ProjectReference Include="..\FTS.Precatorio.Domain\FTS.Precatorio.Domain.csproj" />
+    <ProjectReference Include="..\FTS.Precatorio.Infrastructure\FTS.Precatorio.Infrastructure.csproj" />
   </ItemGroup>
 </Project>

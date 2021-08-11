@@ -1,12 +1,11 @@
+using System;
 using System.Text.Json;
 using Amazon.Lambda.Core;
 using FTS.Precatorio.Domain.Notifications;
 using FTS.Precatorio.Domain.Trades.Services;
 using FTS.Precatorio.Dto.Trades;
-using FTS.Precatorio.StepFunction.Trade.Shared.Configuration;
-
-// Assembly attribute to enable the Lambda function's JSON input to be converted into a .NET class.
-[assembly: LambdaSerializer(typeof(Amazon.Lambda.Serialization.SystemTextJson.DefaultLambdaJsonSerializer))]
+using FTS.Precatorio.StepFunction.Trade.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace FTS.Precatorio.StepFunction.Trade.Lambdas.Step1.CreateTrade
 {
@@ -15,12 +14,14 @@ namespace FTS.Precatorio.StepFunction.Trade.Lambdas.Step1.CreateTrade
         private TradeService _tradeService { get; }
         private IDomainNotification _notifications { get; }
 
-        public Function()
-        {
-            var config = new LambdaConfiguration();
+        public Function() : this(new LambdaConfiguration().BuildServiceProvider()) { }
 
-            _tradeService = config.GetService<TradeService>();
-            _notifications = config.GetService<IDomainNotification>();
+        public Function(IServiceProvider serviceProvider)
+        {
+            if (serviceProvider == null) throw new ArgumentException(nameof(serviceProvider));
+
+            _tradeService = serviceProvider.GetRequiredService<TradeService>();
+            _notifications = serviceProvider.GetRequiredService<IDomainNotification>();
         }
 
         public object FunctionHandler(object input, ILambdaContext context)

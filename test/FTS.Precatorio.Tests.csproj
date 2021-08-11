@@ -33,9 +33,7 @@
     <ProjectReference Include="..\src\FTS.Precatorio.Domain\FTS.Precatorio.Domain.csproj" />
     <ProjectReference Include="..\src\FTS.Precatorio.Api\FTS.Precatorio.Api.csproj" />
     <ProjectReference Include="..\src\FTS.Precatorio.Messaging\FTS.Precatorio.Messaging.csproj" />
-    <ProjectReference Include="..\src\FTS.Precatorio.StepFunction.Trade\Lambdas\Step1.CreateTrade\Step1.CreateTrade.csproj" />
-    <ProjectReference Include="..\src\FTS.Precatorio.StepFunction.Trade\Lambdas\Step2.CreateTicket\Step2.CreateTicket.csproj" />
-    <ProjectReference Include="..\src\FTS.Precatorio.StepFunction.Trade\Lambdas\Step3.CreateAssets\Step3.CreateAssets.csproj" />
+    <ProjectReference Include="..\src\FTS.Precatorio.StepFunction.Trade\FTS.Precatorio.StepFunction.Trade.csproj" />
   </ItemGroup>
 
 </Project>

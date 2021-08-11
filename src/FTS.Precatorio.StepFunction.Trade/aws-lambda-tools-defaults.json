@@ -1,0 +1,10 @@
+{
+  "profile": "default",
+  "region": "us-east-1",
+  "configuration": "Release",
+  "framework": "netcoreapp3.1",
+  "function-runtime": "dotnetcore3.1",
+  "tem": "serverless.tem",
+  "s3-bucket": "publish-lambda-trade",
+  "stack-name": "create-trade"
+}
