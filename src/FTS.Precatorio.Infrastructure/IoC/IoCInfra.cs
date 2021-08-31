@@ -12,6 +12,9 @@ using FTS.Precatorio.Infrastructure.User;
 using FTS.Precatorio.Domain.Trades.Services;
 using FTS.Precatorio.Domain.Notifications;
 using FTS.Precatorio.Domain.Trades.Repository;
+using SQLServerContext = FTS.Precatorio.Infrastructure.Database.SQLServer.Context;
+using FTS.Precatorio.Infrastructure.Database.SQLServer.Repository;
+using FTS.Precatorio.Domain.Tickets.Repository;
 
 namespace FTS.Precatorio.Infrastructure.IoC
 {
@@ -29,11 +32,18 @@ namespace FTS.Precatorio.Infrastructure.IoC
 
             RegisterAmazonServices(services, configuration);
             RegisterRespositories(services);
+            RegisterServicesSQLServer(services);
         }
 
         private static void RegisterRespositories(IServiceCollection services)
         {
             services.AddScoped<ITradeRepository, TradeRepository>();
+        }
+
+        private static void RegisterServicesSQLServer(IServiceCollection services)
+        {
+            services.AddDbContext<SQLServerContext.FTSPrecatorioContext>(ServiceLifetime.Transient);
+            services.AddScoped<ITicketRepository, TicketRepository>();
         }
 
         private static void RegisterAmazonServices(IServiceCollection services, IConfiguration configuration)
